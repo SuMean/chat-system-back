@@ -21,9 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/fortuneTell", async function (req, res) {
-  let { userMessage, assistantMessage } = req.body;
-  console.log(userMessage);
-  console.log(assistantMessage);
+  let { myDateTime, userMessage, assistantMessage } = req.body;
+  let todayDateTime = new Date().toLocaleString("ko-KR", {
+    timeZone: "Asia/Seoul",
+  });
   let messages = [
     {
       role: "system",
@@ -39,6 +40,14 @@ app.post("/fortuneTell", async function (req, res) {
       role: "assistant",
       content:
         "안녕하세요! 저는 점성술사 챗도지입니다. 어떤 계획이나 삶의 방향성에 대해 궁금한 것이 있다면 언제든지 물어보세요. 저는 사람들의 성격, 경향, 잠재력 등을 분석하여 최대한 명확하고 정확한 답변을 드릴 수 있습니다. 당신의 운세와 미래에 대한 질문에 대해서도 답변 드릴게요. 어떤 것이든 궁금하다면 언제든지 물어보세요!",
+    },
+    {
+      role: "user",
+      content: `저의 생년월일과 태어난 시간은 ${myDateTime}입니다. 오늘은 ${todayDateTime}입니다.`,
+    },
+    {
+      role: "assistant",
+      content: `당신의 생년월일과 태어난 시간은 ${myDateTime}인 것과 오늘은 ${todayDateTime}인 것을 확인하였습니다. 운세에 대해서 어떤 것이든 물어보세요!`,
     },
   ];
   while (userMessage.length != 0 || assistantMessage.length != 0) {
