@@ -1,20 +1,21 @@
 const { Configuration, OpenAIApi } = require("openai");
+const serverless = require("serverless-http");
 const express = require("express");
 const app = express();
 const cors = require("cors");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "",
 });
 const openai = new OpenAIApi(configuration);
 
 //cors 이슈해결
-// let corsOptions = {
-//   origin: "https://www.domain.com",
-//   credentials: true,  mn
-// };
+let corsOptions = {
+  origin: "https://chat-project.pages.dev/",
+  credentials: true,
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 //post 요청 받을수 있게 만듬
 app.use(express.json());
@@ -80,4 +81,4 @@ app.post("/fortuneTell", async function (req, res) {
   res.json({ assistant: fortune });
 });
 
-app.listen(3000);
+module.exports.handler = serverless(app);
