@@ -4,14 +4,14 @@ const app = express();
 const cors = require("cors");
 
 const configuration = new Configuration({
-  apiKey: "",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
 //cors 이슈해결
 // let corsOptions = {
 //   origin: "https://www.domain.com",
-//   credentials: true,
+//   credentials: true,  mn
 // };
 
 app.use(cors());
@@ -39,7 +39,7 @@ app.post("/fortuneTell", async function (req, res) {
     {
       role: "assistant",
       content:
-        "안녕하세요! 저는 점성술사 챗도지입니다. 어떤 계획이나 삶의 방향성에 대해 궁금한 것이 있다면 언제든지 물어보세요. 저는 사람들의 성격, 경향, 잠재력 등을 분석하여 최대한 명확하고 정확한 답변을 드릴 수 있습니다. 당신의 운세와 미래에 대한 질문에 대해서도 답변 드릴게요. 어떤 것이든 궁금하다면 언제든지 물어보세요!",
+        "안녕하세요! 저는 점성술사 챗도지입니다. 어떤 계획이나 삶의 방향성에 대해 궁금한 것이 있다면 언제든지 물어보세요. 저는 사람들의 성격, 경향, 잠재력 등을 분석하여 최대한 명확하고 정확한 답변을 드릴 수 있습니다. 당신의 운세와 미래에 대한 질문에 대해서도 답변 드릴게요. 어떤 것이든 궁금하다면 언제든지 물어보세요!!",
     },
     {
       role: "user",
