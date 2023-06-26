@@ -5,13 +5,13 @@ const app = express();
 const cors = require("cors");
 
 const configuration = new Configuration({
-  apiKey: "",
+  apiKey: "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",
 });
 const openai = new OpenAIApi(configuration);
 
 //cors 이슈해결
 let corsOptions = {
-  origin: "https://chat-project.pages.dev/",
+  origin: "https://chat-project.pages.dev",
   credentials: true,
 };
 
