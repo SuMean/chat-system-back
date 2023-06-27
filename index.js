@@ -5,7 +5,7 @@ const app = express();
 const cors = require("cors");
 
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: "",
 });
 const openai = new OpenAIApi(configuration);
 
@@ -71,10 +71,26 @@ app.post("/fortuneTell", async function (req, res) {
       );
     }
   }
-  const chatCompletion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: messages,
-  });
+
+  const maxRetries = 3;
+  let retries = 0;
+  let chatCompletion;
+  while (retries < maxRetries) {
+    try {
+      chatCompletion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: messages,
+      });
+      break;
+    } catch (error) {
+      retries++;
+      console.log(error);
+      console.log(
+        `Error fetching data, retrying (${retries}/${maxRetries})...`
+      );
+    }
+  }
+
   let fortune = chatCompletion.data.choices[0].message["content"];
   console.log(fortune);
 
